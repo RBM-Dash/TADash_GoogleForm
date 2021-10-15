@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TA Dashboard | 2021</title>
+    <style type="text/css">
+        .dropdown-menu {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/myadminlteTA.min.css">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- Navbar -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- =========================================================== -->
+                <!-- <h5 class="mt-4 mb-2">Technical Assistance (2021)</h5> -->
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="small-box  bg-primary" data-toggle="tooltip" data-placement="bottom"
+                            title="All TAs formally requested by coutries eligible for technical support in current year">
+                            <div class="inner">
+                                <h3 id="TAPlanned"></h3>
+
+                                <p>Requested TAs</p>
+                            </div>
+                            <div class="icon">
+                                <i class="far fa-calendar-check"></i>
+                            </div>
+                            <a href="#" class="small-box-footer text-sm-right" id="dueTA">
+                                <!-- <i class="fas fa-calendar-day"></i> -->
+                            </a>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="small-box bg-success" data-toggle="tooltip" data-placement="bottom"
+                            title="All TAs completed up-to-date. Note that some TAs can start to be processed before their starting date and therefore added percentages can be over 100%">
+                            <div class="inner">
+                                <h3 id="TACompleted"></h3>
+
+                                <p>Completed TAs</p>
+                            </div>
+                            <div class="icon">
+                                <i class="far fa-thumbs-up"></i>
+                            </div>
+                            <a href="#" class="small-box-footer text-sm-right" id="percentComp2Due">
+                                <!--   <i class="fas fa-arrow-circle-right"></i> -->
+                            </a>
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="small-box bg-warning" data-toggle="tooltip" data-placement="bottom"
+                            title="Ongoing TAs include requested TAs where processing of TORs have been initiated">
+                            <div class="inner">
+                                <h3 id="TAOngoing"></h3>
+                                <p>Ongoing TAs</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-spinner"></i>
+                            </div>
+                            <a href="#" class="small-box-footer text-sm-right" id="percentOng2Due">
+                                <!-- <i class="fas fa-arrow-circle-right"></i> -->
+                            </a>
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="small-box bg-danger" data-toggle="tooltip" data-placement="bottom"
+                            title="The comments available by hovering on bars explain in some cases the reasons for postponing">
+                            <div class="inner">
+                                <h3 id="TAPostponed"></h3>
+
+                                <p>Postponed TAs</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-business-time"></i>
+                            </div>
+                            <a href="#" class="small-box-footer text-sm-right" id="percentPost2Due">
+                                <!-- Hover for definitions<i class="fas fa-arrow-circle-right"></i> -->
+                            </a>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">TECHNICAL ASSISTANCE (TA) PLAN FOR 2021</h5>
+
+                                <p style="text-align: right"><small><em> Hover on bars indicating task duration to
+                                            see their full description</em></small></p>
+                                <div class="float-left">
+                                    <a class="btn btn-default bg-primary float-left"
+                                        href="javascript:void( window.open( 'https://form.jotform.com/212803157172046',
+                                                                                    'blank', 'scrollbars=yes, toolbar=no, width=700, height=500' ) ) "><i
+                                            class="fas fa-pencil-alt"></i>Click to apply for TA </a>
+                                </div>
+                                <div class="card-tools">
+
+                                    <div class="btn-group">
+                                        <button type="button" id="slist"
+                                            class="btn btn-default dropdown-toggle bg-primary text-xs"
+                                            data-toggle="dropdown">
+                                            Select Status
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right has-mega-menu" role="menu"
+                                            id="sselect">
+                                            <a href="#" class="dropdown-item text-xs">All</a>
+                                            <a href="#" class="dropdown-item text-xs">Completed</a>
+                                            <a href="#" class="dropdown-item text-xs">Ongoing</a>
+                                            <a href="#" class="dropdown-item text-xs">Postponed</a>
+                                            <a href="#" class="dropdown-item text-xs">Pending</a>
+                                            <a href="#" class="dropdown-item text-xs">Not Requested</a>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="btn-group">
+                                        <button type="button" id="clist"
+                                            class="btn btn-default dropdown-toggle bg-primary text-xs"
+                                            data-toggle="dropdown">
+                                            Select Country
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right has-mega-menu" role="menu"
+                                            id="cselect">
+                                            <a href="#" class="dropdown-item text-xs">All</a>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="chart gantt" id="GanttChartDIV">
+
+                                            <!-- /.chart-responsive -->
+                                        </div>
+                                        <!-- /.col -->
+
+                                        <!-- ./card-body -->
+                                        <div class="card-footer"></div>
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                                <!-- /.card-footer -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+
+        <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+            <i class="fas fa-chevron-up"></i>
+        </a>
+        <!-- /.content-wrapper -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="../plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <!-- Bootstrap 4 -->
+    <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../js/adminlte.min.js" type="text/javascript" x-content-type-options="nosniff"></script>
+    <script src="/js/papaparse.min.js" type="text/javascript" x-content-type-options="nosniff"></script>
+    <script src="/js/lodash.min.js" type="text/javascript" x-content-type-options="nosniff"></script>
+    <link href="/css/jsgantt.css" rel="stylesheet" type="text/css" />
+    <script src="/js/jsgantt.js" type="text/javascript" x-content-type-options="nosniff"></script>
+
+</body>
+<script>
+    $(document).ready(function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    })
+
+    var g = new JSGantt.GanttChart(document.getElementById('GanttChartDIV'), 'quarter');
+    function onlyUnique(value, index, self) { return self.indexOf(value) === index; }
+    function isValidDate(d) { return d instanceof Date && !isNaN(d); }
+    function fillGantt(result, myCountry, thisOpened) {
+        let cont = 0;
+        let isOpen = 1;
+        g.ClearTasks();
+        g.Draw();
+        for (let i = 0; i < myCountry.length; i++) {
+            temp = _.filter(result, ['cname', myCountry[i]]);
+            let myD = []; let myldata = []; let myT = [];
+            if (i > thisOpened) { isOpen = 0 };
+            //Define a group for the country
+            let myPParent = cont;
+            var dates = temp.map(function (x) { return new Date(x.startDate); });
+            var earliest = new Date(Math.min.apply(null, dates));
+            var latest = new Date(Math.max.apply(null, temp.map(function (x) { return new Date(x.endDate); })));
+            cont = cont + 1;
+            for (let j = 0; j < temp.length; j++) {
+                // Start filling the Gantt
+                if (j == 0) {
+                    g.AddTaskItemObject({
+                        pID: myPParent,
+                        pName: myCountry[i],
+                        pStart: earliest,
+                        pEnd: latest,
+                        pPlanStart: "",
+                        pPlanEnd: "",
+                        //pClass: "gtaskblue",
+                        pClass: "ggroupblack",
+                        pLink: "",
+                        pMile: 0,
+                        pRes: "",
+                        pComp: 0,
+                        pGroup: 1,
+                        pParent: 0,
+                        pOpen: isOpen,
+                        pDepend: "",
+                        pCaption: "",
+                        pCost: 0,
+                        pNotes: "",
+                        pBarText: "",
+                        category: "",
+                        sector: ""
+                    });
+                };
+                //Fill in the Gantt structure
+                //Define the class of the bar and the completation according to status
+                let myNStatus = ""; var tt;
+                switch (temp[j].Status) {
+                    case "Completed":
+                        myClass = "gtaskgreen";
+                        myComp = 100;
+                        break;
+                    case "Ongoing":
+                        myClass = "gtaskyellow";
+                        tt = (100 * (Math.abs(new Date() - temp[j].startDate) / Math.abs(temp[j].endDate - temp[j].startDate))).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                        myComp = (tt > 100) ? 90 : tt;
+                        break;
+                    case "Undefined":
+                        myClass = "gtaskpurple";
+                        myNStatus = (temp[j].due) ? "Pending" : "Not yet due";
+                        myComp = 0;
+                        break;
+                    case "Requested":
+                        myClass = "gtaskyellow";
+                        myNStatus = "Request under processing";
+                        myComp = 5;
+                        break;
+                    case "Postponed":
+                        myClass = "gtaskred";
+                        myComp = 0;
+                        break;
+                    default:
+                        myClass = "gtaskpurple";
+                        myComp = 0;
+                }
+                g.AddTaskItemObject({
+                    pID: cont,
+                    pName: temp[j].Activity,
+                    pStart: temp[j].startDate,
+                    pEnd: temp[j].endDate,
+                    pPlanStart: temp[j].startDate,
+                    pPlanEnd: temp[j].endDate,
+                    pClass: myClass,
+                    pLink: "",
+                    pMile: 0,
+                    pRes: temp[j].Partner,
+                    pComp: myComp,
+                    pGroup: 0,
+                    pParent: myPParent,
+                    pOpen: isOpen,
+                    pDepend: "",
+                    pCaption: (myNStatus.length > 0) ? myNStatus : temp[j].Status,
+                    pCost: 0,
+                    pNotes: temp[j].Comments,
+                    pBarText: "",
+                    category: "",
+                    sector: ""
+                });
+                cont = cont + 1;
+            }
+        }
+        g.setUseFade(0);
+        g.setUseMove(1);
+        g.setUseSort(0);
+        g.setShowDur(0);
+        g.setShowComp(0);
+        g.setShowEndDate(0);
+        g.setShowTaskInfoDur(0);
+        g.setShowTaskInfoComp(0);
+        g.setShowTaskInfoEndDate(0);
+        g.setShowSelector("Top");
+        g.setDateTaskTableDisplayFormat('mon, yyyy');
+        g.setAdditionalHeaders({ pCaption: { title: 'Status' } });
+        g.setOptions({
+            vCaptionType: 'Complete',  // Set to Show Caption : None,Caption,Resource,Duration,Complete,     
+            vQuarterColWidth: 20,
+            vDateTaskDisplayFormat: 'month yyyy', // Shown in tool tip box
+            vShowTaskInfoLink: 0, // Show link in tool tip (0/1)
+            vShowEndWeekDate: 0,  // Show/Hide the date for the last day of the week in header for daily view (1/0)
+            vUseSingleCell: 0, // Set the threshold at which we will only use one cell per table row (0 disables).  Helps with rendering performance for large charts.
+            vFormatArr: ['Month', 'Quarter'], // Even with setUseSingleCell using Hour format on such a large chart can cause issues in some browsers
+        });
+        return g;
+    };
+    Papa.parse("https://docs.google.com/spreadsheets/d/1KUQ4RLhfd9y4HSLiDdkFGS7cuLr9-YMXqzNHpVV4nf4/gviz/tq?tqx=out:csv&sheet=MyTA 2021", {
+
+        download: true,
+        header: true,
+        dynamicTyping: true,
+        skipEmptyLines: 'greedy',
+        complete: function (results) {
+            //Erase records where cname is empty
+            let result = _.reject(results.data, { 'cname': null });
+            result = _.reject(result, { 'cname': "Country" });
+            result = _.reject(result, ['cname', '#REF!']);
+            result = _.reject(result, ['Activity', null]);
+            //console.log(result)
+            //Correct Dates for all
+            result = _.forEach(result, function (value) {
+                var currentTime = new Date();
+                var myDate = new Date(value.OSDate);
+                if (myDate.getFullYear() === currentTime.getFullYear()) {
+                    //Modify the date so that due date is the end of the month if not defined
+                    var d = new Date(myDate.getFullYear(), myDate.getMonth(), 1);
+                    startDate = d;
+                    endDate = new Date(myDate.getFullYear(), myDate.getMonth() + 2, 30);
+                } else {
+                    //Retrieve the Date from the quarter and year but only if there is not a full Date
+                    if (!(_.isFinite(value.StartYear))) { value.StartYear = currentTime.getFullYear() };
+                    if ((_.isFinite(value.StartYear))) {
+                        endDate = new Date(currentTime.getFullYear(), (value.StartMonth + 2), 30);
+                        startDate = new Date(currentTime.getFullYear(), (value.StartMonth), 1);
+                    } else {
+                        endDate = new Date(currentTime.getFullYear(), (value.StartQuarter * 3), 30);
+                        startDate = new Date(currentTime.getFullYear(), (value.StartQuarter * 3 - 2), 1);
+                    }
+                }
+                value.startDate = startDate;
+                value.endDate = endDate;
+                value.due = ((currentTime - startDate) > 0);
+                //console.log(value);
+            });
+            //Start filling the info boxes
+            //These are all TAs in the Table. Appear under label "TA Needs"
+            //$("#TAPlanned").text(result.length);
+            //Create the denominator for all analysis in the info-boxes. This is result with due = true 
+            //First fill in all the Managed TAs considering only the due tasks. HERE
+            var notRequested = (_.filter(result, ['Status', "Not Requested"]));
+            $("#TAPlanned").text(result.length - notRequested.length);
+            var dueResult = (_.filter(result, ['due', true]));
+            var dateOptions = { month: 'long', day: 'numeric' };
+            dueResult = _.reject(dueResult, ['Status', "Not Requested"]);
+            var today = new Date();
+            $("#dueTA").text(dueResult.length + " due on " + today.toLocaleDateString("en-US", dateOptions));
+            $("#TACompleted").text(_.filter(result, ['Status', "Completed"]).length);
+            $("#percentComp2Due").text((100 * _.filter(result, ['Status', "Completed"]).length / dueResult.length).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + "% of due TAs");
+            $("#TAOngoing").text(_.filter(result, ['Status', "Ongoing"]).length + _.filter(dueResult, ['Status', "Requested"]).length);
+            $("#TAPostponed").text(_.filter(result, ['Status', "Postponed"]).length);
+            $("#percentOng2Due").text((100 * (_.filter(result, ['Status', "Ongoing"]).length + + _.filter(dueResult, ['Status', "Requested"]).length) / dueResult.length).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + "% of due TAs");
+            $("#percentPost2Due").text((100 * _.filter(result, ['Status', "Postponed"]).length / dueResult.length).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + "% of due TAs");
+
+
+            //Populate dropdown list of countries
+            var countries = _.map(result, 'cname').filter(onlyUnique);
+            countries = countries.sort();
+            const ocountries = _.map(result, 'cname').filter(onlyUnique);
+
+            var lCountries = $("#cselect");
+
+            $(countries).each(function () {
+                var option = $("<a></a>");
+
+                //Set country Name in Text part.
+                option.html(this);
+
+                //Set class and href.
+                $(option).attr("class", "dropdown-item text-xs");
+                $(option).attr("href", "#");
+
+                //console.log(option)
+                //Add the Option element to DropDownList.
+                lCountries.append(option);
+            });
+
+            /*   var temp; let myData = []; let tmp; let startDate;
+              let cont = 1; */
+            var myCountry = countries;
+
+            //Find a way to monitor the dropdown list and filter by country if requested
+
+            $("#cselect a").on('click', function (e) {
+                e.preventDefault(); // cancel the link behaviour
+                var myCountry = [$(this).text()];
+                if (myCountry[0] === "All") { myCountry = countries };
+
+                g = fillGantt(result, myCountry, 10);
+
+                g.Draw();
+            });
+            var g = fillGantt(result, myCountry, 10);
+            g.Draw();
+            //Find a way to monitor the status dropdown list and filter by status if requested
+            var fresult;
+            $("#sselect a").on('click', function (e) {
+                e.preventDefault(); // cancel the link behaviour
+                var myStatus = [$(this).text()];
+                if (myStatus[0] === "All") {
+                    fresult = result
+                } else {
+
+                    if (myStatus[0].startsWith("Pending")) { myStatus[0] = "Undefined" }
+                    fresult = _.filter(result, ['Status', myStatus[0]])
+
+                };
+
+                g = fillGantt(fresult, myCountry, 300);
+
+                g.Draw();
+            });
+            var g = fillGantt(result, myCountry, 10);
+            g.Draw();
+
+
+
+        },
+
+    });
+
+
+
+</script>
+<script>$('[data-toggle="tooltip"]').tooltip();</script>
+
+</html>
