@@ -48,7 +48,7 @@
                     <!-- /.col -->
                     <div class="col-md-3 col-sm-6 col-12">
                         <div class="small-box bg-success" data-toggle="tooltip" data-placement="bottom"
-                            title="All TAs completed up-to-date. Note that some TAs can start to be processed before their starting date and therefore added percentages can be over 100%">
+                            title="All TAs completed up-to-the date referred in blue box. Note that some TAs can start to be processed before their starting date and therefore added percentages can be over 100%">
                             <div class="inner">
                                 <h3 id="TACompleted"></h3>
 
@@ -352,8 +352,12 @@
             //console.log(result)
             //Correct Dates for all
             result = _.forEach(result, function (value) {
-                var currentTime = new Date();
-                var myDate = new Date(value.OSDate);
+                const currentTime = new Date(2021,11,31);
+                console.log(currentTime);
+                console.log(value)
+                
+                var myDate = new Date(value.StartYear,value.StartMonth,1);
+                console.log(myDate);
                 if (myDate.getFullYear() === currentTime.getFullYear()) {
                     //Modify the date so that due date is the end of the month if not defined
                     var d = new Date(myDate.getFullYear(), myDate.getMonth(), 1);
@@ -383,9 +387,9 @@
             var notRequested = (_.filter(result, ['Status', "Not Requested"]));
             $("#TAPlanned").text(result.length - notRequested.length);
             var dueResult = (_.filter(result, ['due', true]));
-            var dateOptions = { month: 'long', day: 'numeric' };
+            var dateOptions = { month: 'long', day: 'numeric', year:'numeric' };
             dueResult = _.reject(dueResult, ['Status', "Not Requested"]);
-            var today = new Date();
+            var today = new Date(2021,11,31);
             $("#dueTA").text(dueResult.length + " due on " + today.toLocaleDateString("en-US", dateOptions));
             $("#TACompleted").text(_.filter(result, ['Status', "Completed"]).length);
             $("#percentComp2Due").text((100 * _.filter(result, ['Status', "Completed"]).length / dueResult.length).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + "% of due TAs");
